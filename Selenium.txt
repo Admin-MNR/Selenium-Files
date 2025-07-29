@@ -1,0 +1,201 @@
+Handling Checkboxes
+------------------------
+1)Locate the Checkbox element.
+2)Check whether the Checkbox is selected or not by isSelected() method.
+3)Use the click() method to select the checkboxes.
+4)isSelected() method is mainly used to check the current state of the checkbox.
+5)For selecting the multiple checkboxes or multiple Elements we use findElements() method by iterating the each webelement we can select the checkboxes.
+
+
+
+Handling Alerts
+-----------------------
+There are three types of alerts
+	1)Alert with single OK button.//simple alert
+	2)Alert with OK and CANCEL button.//confirmation alert
+	3)Alerts which takes prompt in it.//prompt alert
+Alert widows are not the WebElements inside alert any elements are not webelements.
+For Handling alerts we use driver.switchTo().alert(); we can store this in variable of type Alert and we can use this variable to do any thing in alerts.
+
+Example:	Alert myalert=driver.switchTo().alert();
+		myalert.accept();   //accept method is to accept the ok button in alert
+		myalert.dismiss();  //for selecting cancel button in alert
+		myalert.getText();  //for extracting text from the alert window
+		myalert.sendKeys(); //for sending keys inside the alert window
+
+Other than the switchTo().alert() method we can use the explicit wait to handle the alert windows
+Alert myalert=mywait.until(ExpectedConditions.alertIsPresent()) //This is which captures the alert if no alert it gives NoSuchAlertException
+
+We also have the Authuntication alerts or popups where we have to enter the required credentials to sign-in or for accessing certain webpages for this type of alerts we have to pass the username and password along with the url this process is known as INJECTION PROCESS.
+The syntax is http://username:password@url link.
+
+There are two types of Alert Exceptions
+NoSuchAlertException:Trying to interact with an alert when there is no alert present. 
+NoAlertPresentException	Trying to interact with an alert when the alert is no longer present (i.e., it was closed).
+
+frames/iframes
+-------------------
+Inorder to interact with the frames firstly we have to switch or focus the webdriver to respective frame using switchTo().
+Steps for switching to frame/iframe
+1)use driver.switchTo().frame() to switch to a frame or iframe.
+2)Interact with the webelements using findElement() or findElements().
+3)If we need to exit the webdriver from current frame and go back to current page then use driver.switchTo().defaultContent()//switches back to main page
+
+Switching to frame can be done in different ways such as
+	1)By index
+		driver.switchTo().frame(0);
+	2)By id or name
+		driver.switchTo().frame("frameName");
+	3)By webelement
+		WebElement frameElement = driver.findElement(By.id("frameId"));
+		driver.switchTo().frame(frameElement);
+
+After interacting with one frame and to intearct with other frame firstly we need to go back to the main page using defaultConent() method and switch to other frame.
+
+
+Handling Dropdowns
+-------------------------
+When working with dropdowns in selenium we encounter with different type of dropdowns they are
+1)Select Dropdown
+	which contains the select tag in html are known as select dropdown.
+	with the help select class we handle this dropdowns.
+	steps for handling select dropdown
+		1)Locate the <select> element using the locators.
+		2)Pass the located webelement to select class.
+		3)The select class provides the methods for interacting <select> dropdowns.
+		4)The methods are
+			selectByVisibleText()//takes the innertext value as input
+			selectByValue()      //takes the value attribute as input
+			selectByIndex()      //takes the index number
+getOptions() is the method which returns the all options fro the dropdown as webelement
+The methods in the select class are
+	selectByVisibleText()
+	selectByValue()
+	selectByIndex()
+	deselectByVisibleText()
+	deselectByValue()
+	deselectByIndex()
+	deselectAll()
+
+2)Bootstrap Dropdowns
+	Not a <select>, so no Select class.
+	Usually built with <div>, <ul>, <a>, or <button>.
+	Use click() to open and select options.
+	We can use XPath or CSS to locate dropdown items.
+
+3)Hidden Dropdowns
+	Options which are not visible in html.
+	To handle this firstly we have to make them visible on html
+
+
+
+Handling Mouse Actions
+--------------------------
+For Handling Mouse Actions we had a predefined class known as Actions through this Actions class object we can handle all mouse events with their methods.
+some Opeartions we can do with mouse are
+	Mouse hover
+	right click
+	double click
+	drag and drop
+first we need to create the object of action class and pass the driver as parameter
+Actions obj =new Actions(driver);
+1)Mouse Hover
+	obj.moveToElement(webelement xpath).build().perform();
+	build() method which creates the action
+	perform() method which executes the action
+2)Right click
+	obj.contextClick(webelement).perform();
+3)Double click
+	obj.doubleClick(webelement path).perform();
+4)Drag and Drop
+	first locate the webelement and pass to its methods to perform actions.
+	obj.dragAndDrop(sourcelement,targerelement).perform();
+Actions vs Action
+Actions:It is a class used to perform mouse actions
+Action:It is a Interface used to store created actions
+
+
+JavaScript Executor
+------------------------
+-It is an Interface which is implemented by RemoteWebDriverClass.
+-executeScript()-method is used to execute javascript statements.
+-When you call any method from the webdriver Internally executes the JavaScript statements then this js statements actually interact with browser but sometimes whenever webdriver methods unable to interact with js statements then throws the exception known as ElementInterceptionException.This occurs when we use click or sendkeys method etc... so to overcome this we use executeScript method.  
+-With help of execute script we can use click and sendkeys action when we get above exception
+Scrolling:
+scroll bar is not a webelement
+	1)Scrolling the page with pixel number
+		-js.executeScript("window.scrollBy(0,1200)","");
+		-js.executeScript("return window.pageYoffset;");//returns the value upto what extent page is scrolled.
+	2)Scrolling the page till element is visible
+		-firstly locate the element
+		-js.executeScript("arguments[0].scrollIntoView();",ele);
+	3)Scrolling till the end of webpage
+		-js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+	4)Scrolling back to Intitial poition
+		-js.executeScript("window.scrollBy(0,-document.body.scrollHeight)");
+-We can also control zoom level options with  javascript executor
+	-js.executeScript("document.body.style.zoom=50%");
+
+		
+Capturing Screenshots
+-----------------------------
+There are mainly three types:
+1)Full page Capturing
+	-TakeScreenshot is an interface which is implemented by remote webdriver class.This interface is used for capturing Screenshots.
+	-firstly we have to assign driver to TakeScreenshot interface.
+		-if we use driver like WebDriver driver=new ChromeDriver() then,
+		-TakeScreenshot ts=(TakeScreenShot) driver;//because above driver is object type of webdriver which is interface so,while assigning it to 								     TakeScreenShot Interface we have to type cast it because both are Intefaces.
+		-if we use ChromeDriver driver=new ChromeDriver();
+		-TakeScreenshot ts=driver();//we can directly assign driver TakeScrrenshot because above ChromeDriver is an class.
+	-File srcfile=ts.getScreenshotAs(OutputType.FILE);//it takes ss but we dont know exactly where the location is.
+	-File target=new File(give location where u want to store)
+	-srcfile.renameTo(target);//srcfile copied into target and stores in we given location.
+2)Capturing Screenshot for specific section
+	-first locate the webelement.
+	-follow the same steps as above using getScreenShotAs() method and continues...
+3)Capturing specific webelement
+	-locating only specific webelement and capturing.
+
+
+ChromeOptions
+---------------------
+In selenium each webdrivers has a inbuilt classes
+for chromedriver we have ChromeOptions and for edgedriver EdgeOptions etc...
+With this classes we can control the settings of the browser.
+The main use of these inbuilt classes in HeadLessTesting i.e,without seeing any actions on the UI testcases execute on the backened and we get only final output test is passed or not but we dont see anything on webpage is known as HeadlessTesting.
+ChromeOptions opt=new ChromeOptions();
+opt.addArguments("--headless=new");//setting headless testing
+WebDriver driver=new ChromeDriver(opt);//without launching the browser all will execute at the backened.
+Advantages of HeadLessTesting
+	-we can do multiple tasks since execution will happen at backened.
+	-Execution is faster.
+DisAdvantages
+	-User cannot see the actions on webpage so he cannot understand the flow/functionality of the test.
+
+SSL Handling also done by ChromeOptions class.
+	-opt.setAcceptInsecureCerts(true)//accepts ssl certificates
+It is also used to remove the "chrome is being controlled by automated testing software".
+	-opt.setExperimentalOption("excludeSwitches",new String[]{"enable-automation"});
+To run the tests in Incognito mode.
+	-opt.addArguments("--incognito");
+Enabling Extensions in Browser
+	-Add CRX extractor plugin to the browser Manually
+	-Add any plugin to the browser manually
+	-capture crx file for added plugin extension
+	-pass crx file path to the automated script in chromeoptions
+		ChromeOptions opt=new Chromeoptions();
+		File fl=new File(path of crx file of added plugin to the browser);
+		opt.addExtensions(fl);
+
+Broken Links
+------------------
+If there is link available in webpage and there is no resource is assigned to it and when we click it if we get status code from the server which is >=400 then such links are known as broken links.
+Simply,Broken Link is a link which does not have any resource in the server.
+
+
+Handling Shadow DOM
+------------------------
+The Shadow DOM is like a "mini, hidden DOM" inside a normal element, created by developers to encapsulate HTML, CSS, and JavaScript.
+A regular DOM is your house. The Shadow DOM is a room inside the house that's hidden from the rest — it has its own lights, furniture (styles), and behavior, and what's inside doesn't mess with or get affected by what's outside.
+Which ever element is holding #shadow-root that is called shadow host.
+Shadow host (contains)->shadow root (which contains)->element.

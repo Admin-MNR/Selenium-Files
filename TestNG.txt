@@ -1,0 +1,75 @@
+TestNG(Advanced FrameWork of the Junit)
+-----------------------------------------
+It is testing framework for Java Programming Language
+It is developed by cedric beust
+TestNG is a testing framework which can be used for unit,integration,end-to-end functionl testing
+Advantages or Features that TestNG provides are:
+	1)Annotations //In Junit we have only less number of annotaions in TestNG we have more
+	2)It also provides parallel testing
+	3)It also has data providers we can pass data to the test methods i.e,Data-Driven Testing
+	4)Test Grouping //You can group test methods using groups and run only specific ones when needed.
+	5)Test Dependencies //Allows one test method to depend on the outcome of another.
+	6)Retry Failed Tests
+	7)Powerful Reporting
+	8)Flexible Test Configuration via XML //TestNG allows you to control test execution from a TestNG XML file—no need to hard-code everything.
+
+
+1)What is TestNG xml file?
+	It is a configuration file which contains the test execution details is nothing but test execution flow.
+
+2)What is the need of TestNG xml file?
+	It is a file where list of test cases which is going to tested or executed is mentioned.
+
+
+
+Assertions
+--------------
+It is an Expression which will verify the actual test outcome with expected test outcome.
+An assertion is a statement that checks if a certain condition is true during the execution of a test.
+Assertions are Important in TestNG because:
+	1)Verify the correctness of the code.
+	2)Detect issues early: By writing assertions, you can detect and address bugs or inconsistencies in your code quickly.
+	3)Control test flow: If an assertion fails, the test execution is typically halted, signaling a failure.
+
+Types of Assertions:
+
+1)assertEquals(actual, expected): Verifies that two values are equal. If they are not, the test fails.
+2)assertNotEquals(actual, expected): Verifies that two values are not equal. If they are equal, the test fails.
+3)assertTrue(condition): Verifies that a condition is true. If the condition is false, the test fails.
+4)assertFalse(condition): Verifies that a condition is false. If the condition is true, the test fails
+5)assertNull(object): Verifies that an object is null. If the object is not null, the test fails.
+6)assertNotNull(object): Verifies that an object is not null. If the object is null, the test fails.
+7)assertSame(actual, expected): Verifies that two objects refer to the same instance (i.e., they have the same memory reference).
+8)assertNotSame(actual, expected): Verifies that two objects do not refer to the same instance.
+
+
+Soft vs Hard Assertions
+
+HardAssertion:
+	->A hard assertion immediately fails the test and stops the execution of the test method when an assertion fails.
+	->Once a hard assertion fails, the remaining steps in the current test method are skipped, and the test is marked as failed.
+SoftAssertion:
+	 ->A soft assertion allows the test to continue even if an assertion fails. The failure is recorded, but the test method does not terminate early. After the 	   test has finished, you can review all soft assertion failures.
+	->TestNG provides SoftAssert class, which allows assertions to be performed without halting the execution of the test. After the test completes, you can check 	  if there were any failures with the assertAll() method.
+
+
+Annotations
+---------------
+It is a form of metadata that can be added to the java source code.
+In Java, annotations are used to define how the compiler or a framework should process certain methods, classes, or fields during runtime or compilation.
+Annotations provide instructions to tools or libraries that work with the code.
+
+@Test	        Marks a method as a test method.
+@BeforeMethod	Runs before each test method.
+@AfterMethod	Runs after each test method.
+@BeforeClass	Runs before the first method in the class is executed.
+@AfterClass	Runs after all test methods in the class have been executed.
+@BeforeSuite	Runs before the first test method in the suite.
+@AfterSuite	Runs after all test methods in the suite.
+@BeforeTest	Runs before the first test method in the <test> tag of the TestNG XML file.
+@AfterTest	Runs after all test methods in the <test> tag of the TestNG XML file.
+@DataProvider	Provides data for parameterized tests.
+@Factory	Used to create instances of test classes dynamically.
+
+
+	
